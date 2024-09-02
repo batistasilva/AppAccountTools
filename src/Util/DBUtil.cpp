@@ -46,7 +46,7 @@ DBUtil::DBUtil():
 bool DBUtil::openConnInPGree() {
     QString erro_log;
     //Using this feature temporarily "../../Xml" to find the configuration file..
-    status_read = readFile("../Xml/ConfigXml.xml");
+    status_read = readFile("ConfigXml.xml");
     //
     if (status_read) {
 
