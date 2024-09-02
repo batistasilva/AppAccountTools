@@ -11,15 +11,15 @@ MngFormConfig::MngFormConfig(QWidget *parent): QDialog(parent),
     m_dao(new DBUtil()),
     m_cfx(new ConfigXml()),
     m_dbc(new DBConn()),
-    ui_cfg(new Ui::MngFormConfig(this))
+    mfcg(new Ui_FormConfig)
 {
-    ui_cfg->setupUi(this);
+    mfcg->setupUi(this);
     setAttribute(Qt::WA_DeleteOnClose);
 
     //
-    connect(ui_cfg->TButtonTestConn, SIGNAL(clicked()), this, SLOT(runTestConf()));
-    connect(TButtonConfigDbSave, SIGNAL(clicked()), this, SLOT(runSaveConf()));
-    connect(TButtonConfigDbExit, SIGNAL(clicked()), this, SLOT(runClose()));
+    connect(mfcg->TButtonTestConn, SIGNAL(clicked()), this, SLOT(runTestConf()));
+    connect(mfcg->TButtonConfigDbSave, SIGNAL(clicked()), this, SLOT(runSaveConf()));
+    connect(mfcg->TButtonConfigDbExit, SIGNAL(clicked()), this, SLOT(runClose()));
 
 }
 
@@ -33,27 +33,27 @@ MngFormConfig::~MngFormConfig() {
  * @return 
  */
 bool MngFormConfig::VlFillForm() {
-    if (ConfigLEDbName->text().isEmpty()) {
+    if (mfcg->ConfigLEDbName->text().isEmpty()) {
         QMessageBox::warning(this, tr("Mensagem!"), tr("Preencha o Campo (Nome do Banco)!!"));
         return false;
     }
     //
-    if (ConfigLEDbHost->text().isEmpty()) {
+    if (mfcg->ConfigLEDbHost->text().isEmpty()) {
         QMessageBox::warning(this, tr("Mensagem!"), QString::fromUtf8("Preencha o Campo (Endereço do Banco)!!"));
         return false;
     }
     //
-    if (ConfigLEDbPort->text().isEmpty()) {
+    if (mfcg->ConfigLEDbPort->text().isEmpty()) {
         QMessageBox::warning(this, tr("Mensagem!"), tr("Preencha o Campo (Porta do Banco)!!"));
         return false;
     }
     //
-    if (ConfigLEDbUser->text().isEmpty()) {
+    if (mfcg->ConfigLEDbUser->text().isEmpty()) {
         QMessageBox::warning(this, tr("Mensagem!"), QString::fromUtf8("Preencha o Campo (Usuário do Banco)!!"));
         return false;
     }
     //
-    if (ConfigLEDbPass->text().isEmpty()) {
+    if (mfcg->ConfigLEDbPass->text().isEmpty()) {
         QMessageBox::warning(this, tr("Mensagem!"), tr("Preencha o Campo (Senha do Banco)!!"));
         return false;
     }
@@ -65,26 +65,26 @@ bool MngFormConfig::VlFillForm() {
  * Metodo responsavel por chamar metodo
  * de gravação dos dados do formulário.
  */
-void MngFormConfig::runSaveConf() {
-   // DBConn m_dbc;
+void MngFormConfig::runSaveConf() {  
 
     if (VlFillForm() == true) {
         /**
          * seta os dados para o objeto, para que
          * sejam salvos para o arquivo xml
          */
-        m_dbc->setDatabase(ConfigLEDbName->text());
-        m_dbc->setHostname(ConfigLEDbHost->text());
-        m_dbc->setPort(ConfigLEDbPort->text());
-        m_dbc->setUsername(ConfigLEDbUser->text());
-        m_dbc->setPassword(ConfigLEDbPass->text());
+        m_dbc->setDatabase(mfcg->ConfigLEDbName->text());
+        m_dbc->setHostname(mfcg->ConfigLEDbHost->text());
+        m_dbc->setPort(mfcg->ConfigLEDbPort->text());
+        m_dbc->setUsername(mfcg->ConfigLEDbUser->text());
+        m_dbc->setPassword(mfcg->ConfigLEDbPass->text());
         //
-        dbconn->setDbconn(m_dbc);
-        bool st_db = dbconn->writeFile("Xml/ConfigXml.xml");
+        m_dao->setDbc(m_dbc);
+
+        bool st_db = m_cfx->writeFile("Xml/ConfigXml.xml");
 
         if (st_db) {
-            ConfigLEDbTestResult->setStyleSheet(QString("QLineEdit { color: blue }"));
-            ConfigLEDbTestResult->setText("Arquivo gerado com sucesso!!");
+            mfcg->ConfigLEDbTestResult->setStyleSheet(QString("QLineEdit { color: blue }"));
+            mfcg->ConfigLEDbTestResult->setText("Arquivo gerado com sucesso!!");
         }
     }
 
@@ -98,17 +98,17 @@ void MngFormConfig::runSaveConf() {
 void MngFormConfig::runTestConf() {
     //
     if (VlFillForm() == true) {
-        m_dbc->setDatabase(ConfigLEDbName->text());
-        m_dbc->setHostname(ConfigLEDbHost->text());
-        m_dbc->setPort(ConfigLEDbPort->text());
-        m_dbc->setUsername(ConfigLEDbUser->text());
-        m_dbc->setPassword(ConfigLEDbPass->text());
+        m_dbc->setDatabase(mfcg->ConfigLEDbName->text());
+        m_dbc->setHostname(mfcg->ConfigLEDbHost->text());
+        m_dbc->setPort(mfcg->ConfigLEDbPort->text());
+        m_dbc->setUsername(mfcg->ConfigLEDbUser->text());
+        m_dbc->setPassword(mfcg->ConfigLEDbPass->text());
         //
-        dbconn->setDbconn(m_dbc);
+        m_dao->setDbc(m_dbc);
         //
-        if(dbconn->openConnInPGree()){
-           ConfigLEDbTestResult->setStyleSheet(QString("QLineEdit { color: green }")); 
-           ConfigLEDbTestResult->setText(QString::fromUtf8("Conexão feita com sucesso!!")); 
+        if(m_dao->openConnInPGree()){
+           mfcg->ConfigLEDbTestResult->setStyleSheet(QString("QLineEdit { color: green }"));
+           mfcg->ConfigLEDbTestResult->setText(QString::fromUtf8("Conexão feita com sucesso!!"));
         }
     }
     //

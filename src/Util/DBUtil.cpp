@@ -128,6 +128,16 @@ bool DBUtil::isOpenConnPGree() {
     return true;
 }
 
+DBConn *DBUtil::dbc() const
+{
+    return m_dbc;
+}
+
+void DBUtil::setDbc(DBConn *newDbc)
+{
+    m_dbc = newDbc;
+}
+
 
 void DBUtil::closeConnPGree(){
     /*Verifica se a conexao está aberta e a encerra*/

@@ -62,10 +62,8 @@ public:
      */
     bool isOpenConnPGree();
 
-
-
-    DBConn *dbconn() const;
-    void setDbconn(DBConn *newDbconn);
+    DBConn *dbc() const;
+    void setDbc(DBConn *newDbc);
 
 protected:
     QSqlDatabase DbPGree;

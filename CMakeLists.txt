@@ -11,8 +11,11 @@ set(CMAKE_PREFIX_PATH $ENV{QTDIR})
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt6 REQUIRED COMPONENTS Widgets  LinguistTools)
-find_package(Qt6 ${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
-set(TS_FILES src/AppAccountTools_en_GB.ts)
+find_package(Qt6 ${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools Sql Xml)
+
+set(TranslationDir "${CMAKE_SOURCE_DIR}/src/langs")
+file(MAKE_DIRECTORY ${TranslationDir})
+set(TS_FILES "${TranslationDir}/en_GB.ts")
 
 #=================== INCLUSION OF Project Files ====================#
 set(FORMS_DIR "${CMAKE_SOURCE_DIR}/Forms")
@@ -35,6 +38,7 @@ set(SOURCES_MNGFORMS_DIR
 set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")
 
 set(SOURCES_SRC_DIR
+    main.cpp
     "${SRC_DIR}/mainwindow.h"
     "${SRC_DIR}/mainwindow.cpp"
 )
@@ -64,6 +68,8 @@ include_directories(${MNG_FORMS_DIR})
 
 # Add the forms directory to the AUTOUIC search paths
 set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_AUTOUIC_SEARCH_PATHS} ${FORMS_DIR})
+qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+
 
 # Add the executable
 if (WIN32) 
@@ -88,7 +94,21 @@ target_include_directories(AppAccountTools PRIVATE ${SRC_UTIL_DIR})
 target_include_directories(AppAccountTools PRIVATE ${FORMS_DIR})
 target_include_directories(AppAccountTools PRIVATE ${MNG_FORMS_DIR})
 
-target_link_libraries(AppAccountTools Qt6::Widgets)
+target_link_libraries(AppAccountTools
+    Qt6::Widgets
+    Qt6::Sql
+    Qt6::Xml
+)
 
 
+# include(GNUInstallDirs)
+# install(TARGETS AppAccountTools
+#     BUNDLE DESTINATION .
+#     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+#     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+# )
+
+# if(QT_VERSION_MAJOR EQUAL 6)
+#     qt_finalize_executable(AppAccountTools)
+# endif()
 

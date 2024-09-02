@@ -20,14 +20,16 @@
 #include "ConfigXml.h"
 #include "DBUtil.h"
 #include "DBConn.h"
+#include "ui_MngFormConfig.h"
+
 
 using namespace std;
 using std::string;
 
-namespace Ui
-{
-    class MngFormConfig;
-}
+// namespace Ui
+// {
+//     class Ui_FormConfig;
+// }
 
 class QWidget;
 class QTimer;
@@ -53,7 +55,7 @@ private:
     ConfigXml * m_cfx;
     DBUtil * m_dao;
     DBConn * m_dbc;
-    Ui::MngFormConfig * ui_cfg;
+    Ui_FormConfig * mfcg;
 
     bool VlFillForm();
 };
