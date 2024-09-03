@@ -12,7 +12,6 @@ void MngLogFile::CreateLogFile(QString filename, QString message)
     QString date_to_file  = dt_time.toString(format);
 
     //seta o nome do arquivo
-    // QString name_file = "LOGREAD" + sndpager.getRoom_code() + tmu.getTimeFormat("%d%m%H%M%S") + ".TXT";
     QString name_file = filename +"-"+ date_to_file + ".TXT";
 
     m_msg->ShowMessage("GRAVANDO LOG, PARA: " + name_file, COLOR_BLUE, COLOR_PINK);
@@ -39,7 +38,7 @@ void MngLogFile::CreateLogFile(QString filename, QString message)
         m_msg->ShowMessage("CreateLogFile(), ERRO PASTA NAO ENCONTRADA..." + folder_write, COLOR_CIANO, COLOR_RED);
 
         if (!directory.mkdir(folder_write))
-            m_msg->ShowMessage("CreateLogFile(), ERRO, NAO FOI POSSIVEL CRIAR A PASTA: " + folder_write, COLOR_CIANO, COLOR_RED);
+            m_msg->ShowMessage("MngLogFile::CreateLogFile(), ERRO, NAO FOI POSSIVEL CRIAR A PASTA: " + folder_write, COLOR_CIANO, COLOR_RED);
     }
 
     if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -47,7 +46,7 @@ void MngLogFile::CreateLogFile(QString filename, QString message)
         out << message.toStdString().c_str() << "\n";
         file.close();
     } else {
-        m_msg->ShowMessage("DirFile*::CreateLogFile(), ERRO NA GRAVACAO DO ARQUIVO" + name_file, COLOR_CIANO, COLOR_RED);
+        m_msg->ShowMessage("MngLogFile::CreateLogFile(), ERRO NA GRAVACAO DO ARQUIVO" + name_file, COLOR_CIANO, COLOR_RED);
     }
 }
 

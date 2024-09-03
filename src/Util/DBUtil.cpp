@@ -83,7 +83,7 @@ bool DBUtil::openConnInPGree() {
             //
             m_msg->ShowMessage(erro_log, COLOR_BLUE, COLOR_RED);
             //
-            m_mlf->setFile_name("Logs/LogDB/");
+            m_mlf->setFile_name("Xml");
             //
             m_mlf->CreateLogFile("LOGPGSQL", erro_log);
             //        
@@ -118,7 +118,7 @@ bool DBUtil::isOpenConnPGree() {
         //
         m_msg->ShowMessage(erro_log, COLOR_BLUE, COLOR_RED);
         //
-        m_mlf->setFile_name("Logs/LogDB/");
+        m_mlf->setFile_name("Xml");
         //
         m_mlf->CreateLogFile("LOGPGSQL", erro_log);
         //

@@ -15,6 +15,7 @@
 #include <QDebug>
 #include <QtWidgets/QMessageBox>
 #include "DBConn.h"
+#include "ShowMsg.h"
 
 
 class ConfigXml : public QObject {
@@ -29,6 +30,8 @@ public:
 
 private:
     DBConn * m_dbconn;
+    ShowMsg * m_msg;
+
     void readMainContentElement(); //ler mãe
     void readChildContentElement(); //ler filhos
     QXmlStreamReader reader;

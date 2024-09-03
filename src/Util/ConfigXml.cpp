@@ -11,7 +11,8 @@
 
 
 ConfigXml::ConfigXml(QObject *parent): QObject(parent),
-    m_dbconn(new DBConn())
+    m_dbconn(new DBConn()),
+    m_msg(new ShowMsg())
 {
    qDebug() << "drivers: "<< QSqlDatabase::drivers();
 }
@@ -29,17 +30,40 @@ bool ConfigXml::readFile(const QString& fileName) {
     //Ler arquivo de configuração setado
     qDebug() << "My Real File..." << fileName;
 
-    QFile file(fileName);
+    QString folder_write = "/home/system/WorkSpace/QtProjects/AppAccountTools/Xml/";
+    QDir mDir(folder_write);
+    m_msg->ShowMessage("Directory: " + mDir.dirName(), COLOR_GREEN, COLOR_PINK);
+
+    QString file_path = mDir.filePath(fileName);
+    m_msg->ShowMessage("Path: " + file_path, COLOR_GREEN, COLOR_PINK);
+
+    mDir.setPath(folder_write);
+
+    /**
+     * Abre o arquivo para gravacao. Caso ele exista
+     * gera um novo arquivo.
+     */
+    QFile file(file_path);
+
+    m_msg->ShowMessage("GRAVANDO PARA PASTA: " + file_path, COLOR_CIANO, COLOR_PINK);
+
+
+    if (!mDir.exists()) {
+        m_msg->ShowMessage("ConfigXml::readFile(), ERRO PASTA NAO ENCONTRADA..." + folder_write, COLOR_CIANO, COLOR_RED);
+
+        if (!mDir.mkdir(folder_write))
+            m_msg->ShowMessage("ConfigXml::readFile(), ERRO, NAO FOI POSSIVEL CRIAR A PASTA: " + folder_write, COLOR_CIANO, COLOR_RED);
+    }
 
     if (!file.open(QFile::ReadOnly | QFile::Text)) {
-
-        qDebug() << "Erro: não foi possível abrir arquivo" << qPrintable(fileName)
-                << ": " << qPrintable(file.errorString());
-        QString erro_msg = QString::fromUtf8("Não foi possível abrir arquivo\n") + QString(qPrintable(fileName)) + ": " + QString(qPrintable(file.errorString()));
+        QString erro_msg = QString::fromUtf8("Não foi possível abrir arquivo\n")
+                           + QString(qPrintable(fileName)) + ": "
+                           + QString(qPrintable(file.errorString()));
+        m_msg->ShowMessage(erro_msg + file_path, COLOR_CIANO, COLOR_RED);
         QMessageBox::information(0, "Erro!", erro_msg);
- 
+
         writeFile(fileName);
- 
+
         return false;
     }
 
@@ -177,13 +201,37 @@ void ConfigXml::readChildContentElement() {
  * @return true=sucesso, false=erro de gravação
  */
 bool ConfigXml::writeFile(const QString& fileName) {
-    QFile file(fileName);
+    QString folder_write = "/home/system/WorkSpace/QtProjects/AppAccountTools/Xml/";
+    QDir mDir(folder_write);
+    m_msg->ShowMessage("Directory: " + mDir.dirName(), COLOR_GREEN, COLOR_PINK);
+
+    QString file_path = mDir.filePath(fileName);
+    m_msg->ShowMessage("Path: " + file_path, COLOR_GREEN, COLOR_PINK);
+
+    mDir.setPath(folder_write);
+
+    /**
+     * Abre o arquivo para gravacao. Caso ele exista
+     * gera um novo arquivo.
+     */
+    QFile file(file_path);
+
+    m_msg->ShowMessage("GRAVANDO PARA PASTA: " + file_path, COLOR_CIANO, COLOR_PINK);
+
+
+    if (!mDir.exists()) {
+        m_msg->ShowMessage("ConfigXml::writeFile(), ERRO PASTA NAO ENCONTRADA..." + folder_write, COLOR_CIANO, COLOR_RED);
+
+        if (!mDir.mkdir(folder_write))
+            m_msg->ShowMessage("ConfigXml::writeFile(), ERRO, NAO FOI POSSIVEL CRIAR A PASTA: " + folder_write, COLOR_CIANO, COLOR_RED);
+    }
 
     if (!file.open(QFile::WriteOnly | QFile::Text)) {
         QMessageBox::information(0, "Erro!", QString::fromUtf8("Não foi possível gravar o arquivo\n") + QString(qPrintable(fileName)) +
-                " : Erro..: " + QString(qPrintable(file.errorString())));
+                                                 " : Erro..: " + QString(qPrintable(file.errorString())));
         return false;
     }
+
 
     QXmlStreamWriter xmlWriter(&file);
     //
