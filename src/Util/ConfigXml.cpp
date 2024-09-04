@@ -10,11 +10,13 @@
 
 
 
-ConfigXml::ConfigXml(QObject *parent): QObject(parent),
-    m_dbconn(new DBConn()),
+ConfigXml::ConfigXml():
     m_msg(new ShowMsg())
 {
-   qDebug() << "drivers: "<< QSqlDatabase::drivers();
+    system_path = "/home/system/WorkSpace/QtProjects/AppAccountTools/";
+    folder_write = system_path + "Xml/";
+
+    qDebug() << "drivers: "<< QSqlDatabase::drivers();
 }
 
 ConfigXml::~ConfigXml() {
@@ -30,7 +32,6 @@ bool ConfigXml::readFile(const QString& fileName) {
     //Ler arquivo de configuração setado
     qDebug() << "My Real File..." << fileName;
 
-    QString folder_write = "/home/system/WorkSpace/QtProjects/AppAccountTools/Xml/";
     QDir mDir(folder_write);
     m_msg->ShowMessage("Directory: " + mDir.dirName(), COLOR_GREEN, COLOR_PINK);
 
@@ -75,7 +76,7 @@ bool ConfigXml::readFile(const QString& fileName) {
         //
         if (reader.isStartElement()) {
             //
-            if (reader.name() == QString("ConfigXml")) {
+            if (reader.name() == QString("ConfigConn")) {
                 readMainContentElement();
             } else {
                 reader.raiseError(QObject::tr("Not a configconn file"));
@@ -123,11 +124,11 @@ void ConfigXml::readMainContentElement() {
         if (reader.isStartElement()) {//ser for inicio de elemento
             qDebug() << "Inicio Element em readBook Name: " << reader.name().toString();
             if (reader.name() == QString("Database")) {//se for igual a entry, entra
-                qDebug() << "readBook Database: " << reader.name().toString();
+                //qDebug() << "readBook Database: " << reader.name().toString();
                 //qDebug() << "Valor de reader: " << reader.attributes().value("term").toQString();
                 readChildContentElement(); //seta dados lido
             } else if (reader.name() == QString("User")) {//se for igual a entry, entra
-                qDebug() << "readBook User: " << reader.name().toString();
+                //qDebug() << "readBook User: " << reader.name().toString();
                 //qDebug() << "Valor de reader: " << reader.attributes().value("term").toQString();
                 readChildContentElement(); //seta dados lido
             } else {
@@ -156,32 +157,37 @@ void ConfigXml::readChildContentElement() {
 
             if (reader.name() == QString("name")) {
                 //
-                m_dbconn->setDatabase(reader.readElementText());
-                qDebug() << "\nName.....:" << m_dbconn->getDatabase();
+                QString m_Database = reader.readElementText();
+                setDatabase(m_Database);
+                qDebug() << "\nName.....:" << m_Database;
                 //
                 if (reader.isEndElement()) reader.readNext();
             } else if (reader.name() == QString("hostname")) {
                 //
-                m_dbconn->setHostname(reader.readElementText());
-                qDebug() << "Host.....:" << m_dbconn->getHostname();
+                QString m_HostName = reader.readElementText();
+                setHostname(m_HostName);
+                qDebug() << "Host.....:" << m_HostName;
                 //
                 if (reader.isEndElement()) reader.readNext();
             } else if (reader.name() == QString("port")) {
                 //
-                m_dbconn->setPort(reader.readElementText());
-                qDebug() << "Port.....:" << m_dbconn->getPort();
+                QString m_Port = reader.readElementText();
+                setPort(m_Port);
+                qDebug() << "Port.....:" << m_Port;
                 //
                 if (reader.isEndElement()) reader.readNext();
             } else if (reader.name() == QString("username")) {
                 //
-                m_dbconn->setUsername(reader.readElementText());
-                qDebug() << "User.....:" << m_dbconn->getUsername();
+                QString m_UserName = reader.readElementText();
+                setUsername(m_UserName);
+                qDebug() << "User.....:" << m_UserName;
                 //
                 if (reader.isEndElement()) reader.readNext();
             } else if (reader.name() == QString("password")) {
                 //
-                m_dbconn->setPassword(reader.readElementText());
-                qDebug() << "Pass.....:" << m_dbconn->getPassword();
+                QString m_Password = reader.readElementText();
+                setPassword(m_Password);
+                qDebug() << "Pass.....:" << m_Password;
                 //
                 if (reader.isEndElement()) reader.readNext();
             } else {
@@ -201,7 +207,6 @@ void ConfigXml::readChildContentElement() {
  * @return true=sucesso, false=erro de gravação
  */
 bool ConfigXml::writeFile(const QString& fileName) {
-    QString folder_write = "/home/system/WorkSpace/QtProjects/AppAccountTools/Xml/";
     QDir mDir(folder_write);
     m_msg->ShowMessage("Directory: " + mDir.dirName(), COLOR_GREEN, COLOR_PINK);
 
@@ -238,20 +243,20 @@ bool ConfigXml::writeFile(const QString& fileName) {
     //
     xmlWriter.setAutoFormatting(true);
     xmlWriter.writeStartDocument();
-    xmlWriter.writeStartElement("ConfigXml");
+    xmlWriter.writeStartElement("ConfigConn");
 
     xmlWriter.writeStartElement("Database");
     
-    xmlWriter.writeTextElement("name", m_dbconn->getDatabase());
-    xmlWriter.writeTextElement("hostname", m_dbconn->getHostname());
-    xmlWriter.writeTextElement("port", m_dbconn->getPort());
+    xmlWriter.writeTextElement("name", getDatabase());
+    xmlWriter.writeTextElement("hostname", getHostname());
+    xmlWriter.writeTextElement("port", getPort());
     //
     xmlWriter.writeEndElement();
     //
     xmlWriter.writeStartElement("User");
    
-    xmlWriter.writeTextElement("username", m_dbconn->getUsername());
-    xmlWriter.writeTextElement("password", m_dbconn->getPassword());
+    xmlWriter.writeTextElement("username", getUsername());
+    xmlWriter.writeTextElement("password", getPassword());
     //
     //
     xmlWriter.writeEndElement();
@@ -265,6 +270,8 @@ bool ConfigXml::writeFile(const QString& fileName) {
     }
     return true;
 }
+
+
 
 
 

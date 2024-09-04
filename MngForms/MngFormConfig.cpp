@@ -10,7 +10,6 @@
 MngFormConfig::MngFormConfig(QWidget *parent): QDialog(parent),
     m_dao(new DBUtil()),
     m_cfx(new ConfigXml()),
-    m_dbc(new DBConn()),
     mfcg(new Ui_FormConfig)
 {
     mfcg->setupUi(this);
@@ -34,27 +33,27 @@ MngFormConfig::~MngFormConfig() {
  */
 bool MngFormConfig::VlFillForm() {
     if (mfcg->ConfigLEDbName->text().isEmpty()) {
-        QMessageBox::warning(this, tr("Mensagem!"), tr("Preencha o Campo (Nome do Banco)!!"));
+        QMessageBox::warning(this, tr("Message!"), tr("Enter the database name!"));
         return false;
     }
     //
     if (mfcg->ConfigLEDbHost->text().isEmpty()) {
-        QMessageBox::warning(this, tr("Mensagem!"), QString::fromUtf8("Preencha o Campo (Endereço do Banco)!!"));
+        QMessageBox::warning(this, tr("Message!"), QString::fromUtf8("Enter the database address!"));
         return false;
     }
     //
     if (mfcg->ConfigLEDbPort->text().isEmpty()) {
-        QMessageBox::warning(this, tr("Mensagem!"), tr("Preencha o Campo (Porta do Banco)!!"));
+        QMessageBox::warning(this, tr("Message!"), tr("Enter the database port!"));
         return false;
     }
     //
     if (mfcg->ConfigLEDbUser->text().isEmpty()) {
-        QMessageBox::warning(this, tr("Mensagem!"), QString::fromUtf8("Preencha o Campo (Usuário do Banco)!!"));
+        QMessageBox::warning(this, tr("Message!"), QString::fromUtf8("Enter the database user!"));
         return false;
     }
     //
     if (mfcg->ConfigLEDbPass->text().isEmpty()) {
-        QMessageBox::warning(this, tr("Mensagem!"), tr("Preencha o Campo (Senha do Banco)!!"));
+        QMessageBox::warning(this, tr("Message!"), tr("Enter the database password!"));
         return false;
     }
     //
@@ -72,19 +71,18 @@ void MngFormConfig::runSaveConf() {
          * seta os dados para o objeto, para que
          * sejam salvos para o arquivo xml
          */
-        m_dbc->setDatabase(mfcg->ConfigLEDbName->text());
-        m_dbc->setHostname(mfcg->ConfigLEDbHost->text());
-        m_dbc->setPort(mfcg->ConfigLEDbPort->text());
-        m_dbc->setUsername(mfcg->ConfigLEDbUser->text());
-        m_dbc->setPassword(mfcg->ConfigLEDbPass->text());
+        m_cfx->setDatabase(mfcg->ConfigLEDbName->text());
+        m_cfx->setHostname(mfcg->ConfigLEDbHost->text());
+        m_cfx->setPort(mfcg->ConfigLEDbPort->text());
+        m_cfx->setUsername(mfcg->ConfigLEDbUser->text());
+        m_cfx->setPassword(mfcg->ConfigLEDbPass->text());
         //
-        m_dao->setDbc(m_dbc);
 
-        bool st_db = m_cfx->writeFile("Xml/ConfigXml.xml");
+        bool st_db = m_cfx->writeFile("ConfigXml.xml");
 
         if (st_db) {
             mfcg->ConfigLEDbTestResult->setStyleSheet(QString("QLineEdit { color: blue }"));
-            mfcg->ConfigLEDbTestResult->setText("Arquivo gerado com sucesso!!");
+            mfcg->ConfigLEDbTestResult->setText("File generated successfully!");
         }
     }
 
@@ -98,17 +96,21 @@ void MngFormConfig::runSaveConf() {
 void MngFormConfig::runTestConf() {
     //
     if (VlFillForm() == true) {
-        m_dbc->setDatabase(mfcg->ConfigLEDbName->text());
-        m_dbc->setHostname(mfcg->ConfigLEDbHost->text());
-        m_dbc->setPort(mfcg->ConfigLEDbPort->text());
-        m_dbc->setUsername(mfcg->ConfigLEDbUser->text());
-        m_dbc->setPassword(mfcg->ConfigLEDbPass->text());
+        m_dao->setDatabase(mfcg->ConfigLEDbName->text());
+        m_dao->setHostname(mfcg->ConfigLEDbHost->text());
+        m_dao->setPort(mfcg->ConfigLEDbPort->text());
+        m_dao->setUsername(mfcg->ConfigLEDbUser->text());
+        m_dao->setPassword(mfcg->ConfigLEDbPass->text());
         //
-        m_dao->setDbc(m_dbc);
-        //
-        if(m_dao->openConnInPGree()){
+
+        if(m_dao->runTestConnection()){
            mfcg->ConfigLEDbTestResult->setStyleSheet(QString("QLineEdit { color: green }"));
-           mfcg->ConfigLEDbTestResult->setText(QString::fromUtf8("Conexão feita com sucesso!!"));
+           mfcg->ConfigLEDbTestResult->setText(QString::fromUtf8("Connection made successfully!"));
+           mfcg->TButtonConfigDbSave->setEnabled(true);
+        }else{
+            mfcg->ConfigLEDbTestResult->setStyleSheet(QString("QLineEdit { color: red }"));
+            mfcg->ConfigLEDbTestResult->setText(QString::fromUtf8("Connection Error!"));
+            mfcg->TButtonConfigDbSave->setEnabled(false);
         }
     }
     //

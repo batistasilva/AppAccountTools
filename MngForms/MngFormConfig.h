@@ -54,7 +54,7 @@ private slots:
 private:
     ConfigXml * m_cfx;
     DBUtil * m_dao;
-    DBConn * m_dbc;
+    // DBConn * m_dbc;
     Ui_FormConfig * mfcg;
 
     bool VlFillForm();

@@ -1,9 +1,12 @@
 #include "MngLogFile.h"
 
+
 MngLogFile::MngLogFile(QObject *parent)
     : QObject(parent),
     m_msg(new ShowMsg())
-{}
+{
+    system_path = "/home/system/WorkSpace/QtProjects/AppAccountTools/";
+}
 
 void MngLogFile::CreateLogFile(QString filename, QString message)
 {
@@ -16,7 +19,7 @@ void MngLogFile::CreateLogFile(QString filename, QString message)
 
     m_msg->ShowMessage("GRAVANDO LOG, PARA: " + name_file, COLOR_BLUE, COLOR_PINK);
 
-    QString folder_write = "/home/system/WorkSpace/QtProjects/AppAccountTools/Logs/";
+    QString folder_write = system_path + "Logs/";
     QDir directory(folder_write);
     m_msg->ShowMessage("Directory: " + directory.dirName(), COLOR_GREEN, COLOR_PINK);
 
@@ -50,12 +53,4 @@ void MngLogFile::CreateLogFile(QString filename, QString message)
     }
 }
 
-QString MngLogFile::getFile_name() const
-{
-    return file_name;
-}
 
-void MngLogFile::setFile_name(const QString &newFile_name)
-{
-    file_name = newFile_name;
-}

@@ -27,6 +27,7 @@ public:
     DBUtil();
     //
     //QSqlQuery query;
+    bool runTestConnection();
 
     QSqlDatabase getDbPGree() const {
         return DbPGree;
@@ -62,19 +63,15 @@ public:
      */
     bool isOpenConnPGree();
 
-    DBConn *dbc() const;
-    void setDbc(DBConn *newDbc);
-
 protected:
     QSqlDatabase DbPGree;
     //
 
 private:
-    bool status_read;
+    bool status_read = false;
 
     MngLogFile * m_mlf;
     ShowMsg * m_msg;
-    DBConn * m_dbc;
 
 };
 

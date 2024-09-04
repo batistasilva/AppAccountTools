@@ -17,14 +17,10 @@ public:
     void CreateLogFile(QString filename, QString message);
 
 
-    QString getFile_name() const;
-    void setFile_name(const QString &newFile_name);
-
 signals:
 
 private:
     QString system_path;
-    QString file_name;
     //
     ShowMsg  * m_msg;
 };

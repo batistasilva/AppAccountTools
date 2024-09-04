@@ -9,14 +9,17 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>629</width>
-    <height>557</height>
+    <width>588</width>
+    <height>468</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
   <widget class="QToolButton" name="TButtonConfigDbSave">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>180</x>
@@ -47,7 +50,7 @@
     <string>Salvar</string>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="images.qrc">
      <normaloff>:/images/PNG/48x48/Filesaveas-48x48.png</normaloff>:/images/PNG/48x48/Filesaveas-48x48.png</iconset>
    </property>
    <property name="iconSize">
@@ -403,7 +406,7 @@
      <string>Testar</string>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="images.qrc">
       <normaloff>:/images/PNG/24x24/reload-24x24.png</normaloff>:/images/PNG/24x24/reload-24x24.png</iconset>
     </property>
     <property name="toolButtonStyle">
@@ -563,7 +566,7 @@
     <string>Sair</string>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="images.qrc">
      <normaloff>:/images/PNG/48x48/Exithome-48x48.png</normaloff>:/images/PNG/48x48/Exithome-48x48.png</iconset>
    </property>
    <property name="iconSize">
@@ -577,6 +580,8 @@
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
  <connections/>
 </ui>

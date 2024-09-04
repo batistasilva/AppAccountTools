@@ -25,6 +25,8 @@
 // }
 
 #include "DBUtil.h"
+#include "MngLogFile.h"
+#include "ShowMsg.h"
 
 int main(int argc, char *argv[]) {
     // initialize resources, if needed
@@ -39,16 +41,34 @@ int main(int argc, char *argv[]) {
     //app.setStyle("QMotifStyle");
     //app.setStyle("QCleanlooksStyle");
     //
-    // MainWindow mainWin;
-    // mainWin.show();
-    // mainWin.setMinimumSize(1024, 700);
-    //
-    //mainWin.setFixedSize(1024, 768);
-    //mainWin.setFixedSize(1024, 768);
+    MainWindow mainWin;
+    mainWin.show();
+    mainWin.setMinimumSize(1024, 700);
 
-    DBUtil * mdbc;
-    mdbc = new DBUtil();
-    mdbc->openConnInPGree();
+    mainWin.setFixedSize(1024, 768);
+    mainWin.setFixedSize(1024, 768);
+
+    // DBUtil * mdbc;
+    // ShowMsg * m_msg = new ShowMsg();
+    // mdbc = new DBUtil();
+    // bool result = mdbc->openConnInPGree();
+
+    // if (result) {
+    //     m_msg->ShowMessage("Conexao com PostgreSql feita com sucesso!! ", COLOR_BLUE, COLOR_PINK);
+    // }
+
+
+    // QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
+    // db.setHostName("localhost");
+    // db.setDatabaseName("customdb");
+    // db.setUserName("admin");
+    // db.setPassword("admin");
+    // bool ok = db.open();
+    // if (ok) {
+    //     m_msg->ShowMessage("Conexao com PostgreSql feita com sucesso!! ", COLOR_BLUE, COLOR_PINK);
+    // }else{
+    //     m_msg->ShowMessage("Error In Connection PostgreSql: "+ QString(db.lastError().text()), COLOR_BLUE, COLOR_RED);
+    // }
 
     return app.exec();
 }

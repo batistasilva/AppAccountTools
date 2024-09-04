@@ -11,7 +11,7 @@
 #include <QObject>
 #include <QString>
 
-class DBConn {
+class DBConn{
 public:
     DBConn();
     //DBConn() = default;

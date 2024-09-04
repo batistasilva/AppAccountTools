@@ -13,15 +13,63 @@
  */
 DBUtil::DBUtil():
     m_mlf(new MngLogFile()),
-    m_msg(new ShowMsg()),
-    m_dbc(new DBConn())
+    m_msg(new ShowMsg())
 {
-    status_read = false;
-
-    m_msg->ShowMessage("Mensagem: Construtor Principal DBUtil()!!", COLOR_BLUE, COLOR_PINK);
+     m_msg->ShowMessage("Mensagem: Construtor Principal DBUtil()!!", COLOR_BLUE, COLOR_PINK);
     //
     //Abre banco Sqlite na memoria
     //openConnInSqLite();
+}
+
+bool DBUtil::runTestConnection()
+{
+    m_msg->ShowMessage("DBUtil::runTestConnection() ", COLOR_BLUE, COLOR_YELLOW);
+    //
+    DbPGree = QSqlDatabase::addDatabase("QPSQL");
+    m_msg->ShowMessage(getHostname(), COLOR_BLUE, COLOR_PINK);
+    m_msg->ShowMessage(getPort(), COLOR_BLUE, COLOR_PINK);
+    m_msg->ShowMessage(getUsername(), COLOR_BLUE, COLOR_PINK);
+    m_msg->ShowMessage(getPassword(), COLOR_BLUE, COLOR_PINK);
+
+    //
+    DbPGree.setHostName(getHostname());
+    DbPGree.setDatabaseName(getDatabase());
+    DbPGree.setPort(getPort().toInt());
+    DbPGree.setUserName(getUsername());
+    DbPGree.setPassword(getPassword());
+    //
+
+    //Valid if dbconnection found a valid driver
+    if (!DbPGree.isValid()) {
+        QString sqlerro = DbPGree.lastError().text();
+        //
+        QMessageBox::critical(0, QString::fromUtf8("Error: Invalid connection data!"), sqlerro);
+        //
+        sqlerro = "OpenConn(): Unable to open PostgreSql-> " + sqlerro;
+        //
+        m_msg->ShowMessage(sqlerro, COLOR_BLUE, COLOR_RED);
+        //
+        m_mlf->CreateLogFile("LOGPGSQL", sqlerro);
+        //
+
+        return false;
+    }
+
+    //Valid if database was opened corectly...
+    if (!DbPGree.open()) {
+        QString sqlerro = DbPGree.lastError().text();
+        //
+        QMessageBox::critical(0, QString::fromUtf8("Error: Connecting to the database!"), sqlerro);
+        //
+        sqlerro = "OpenConn(): Unable to open PostgreSql-> " + sqlerro;
+        //
+        m_msg->ShowMessage(sqlerro, COLOR_BLUE, COLOR_RED);
+        //
+        m_mlf->CreateLogFile("LOGPGSQL", sqlerro);
+        //
+        return false;
+    }
+    return true;
 }
 
 
@@ -45,57 +93,57 @@ DBUtil::DBUtil():
  */
 bool DBUtil::openConnInPGree() {
     QString erro_log;
-    //Using this feature temporarily "../../Xml" to find the configuration file..
     status_read = readFile("ConfigXml.xml");
     //
-    if (status_read) {
-
+    if(status_read){
+        m_msg->ShowMessage("DBUtil::openConnInPGree() ", COLOR_BLUE, COLOR_YELLOW);
         //
         DbPGree = QSqlDatabase::addDatabase("QPSQL");
-        //
-        DbPGree.setHostName(m_dbc->getHostname());
-        DbPGree.setDatabaseName(m_dbc->getDatabase());
-        DbPGree.setPort(m_dbc->getPort().toInt());
-        DbPGree.setUserName(m_dbc->getUsername());
-        DbPGree.setPassword(m_dbc->getPassword());
-        //
-        /**
-         * Se foi possivel abrir o arquivo
-         * de configuracao, entra para abrir
-         * o banco de dados.
-         * @return 
-         */
-        if (!DbPGree.isValid()) {
-            QString sqlerro = DbPGree.lastError().databaseText();
-            //
-            QMessageBox::critical(0, QString::fromUtf8("Erro: Dados para conexão inválidos!"), sqlerro);
-            return false;
-        }
+        m_msg->ShowMessage(getHostname(), COLOR_BLUE, COLOR_PINK);
+        m_msg->ShowMessage(getPort(), COLOR_BLUE, COLOR_PINK);
+        m_msg->ShowMessage(getUsername(), COLOR_BLUE, COLOR_PINK);
+        m_msg->ShowMessage(getPassword(), COLOR_BLUE, COLOR_PINK);
 
-        if (!DbPGree.open()) {
+        //
+        DbPGree.setHostName(getHostname());
+        DbPGree.setDatabaseName(getDatabase());
+        DbPGree.setPort(getPort().toInt());
+        DbPGree.setUserName(getUsername());
+        DbPGree.setPassword(getPassword());
+        //
+
+        //Valid if dbconnection found a valid driver
+        if (!DbPGree.isValid()) {
             QString sqlerro = DbPGree.lastError().text();
             //
-            QMessageBox::critical(0, QString::fromUtf8("Erro: Conectando para o banco de dados!"), sqlerro);
+            QMessageBox::critical(0, QString::fromUtf8("Error: Invalid connection data!"), sqlerro);
             //
-            //  QMessageBox::critical(0, QObject::tr("Erro: Conectando em Banco de Dados!"), sqlerro);
-            //
-            erro_log = "OpenConn(): Nao foi possivel abri PostgreSql -> " + sqlerro;
+            sqlerro = "OpenConn(): Unable to open PostgreSql-> " + sqlerro;
             //
             m_msg->ShowMessage(erro_log, COLOR_BLUE, COLOR_RED);
             //
-            m_mlf->setFile_name("Xml");
+            m_mlf->CreateLogFile("LOGPGSQL", sqlerro);
+            //
+
+            return false;
+        }
+
+        //Valid if database was opened corectly...
+        if (!DbPGree.open()) {
+            QString sqlerro = DbPGree.lastError().text();
+            //
+            QMessageBox::critical(0, QString::fromUtf8("Error: Connecting to the database!"), sqlerro);
+            //
+            erro_log = "OpenConn(): Unable to open PostgreSql-> " + sqlerro;
+            //
+            m_msg->ShowMessage(erro_log, COLOR_BLUE, COLOR_RED);
             //
             m_mlf->CreateLogFile("LOGPGSQL", erro_log);
             //        
             return false;
         }
-
-        m_msg->ShowMessage("Conexao com PostgreSql feita com sucesso!! ", COLOR_BLUE, COLOR_PINK);
-    } else {
-        m_msg->ShowMessage("Nao foi Possivel fazer a Leitura do Arquivo de Configuração!! ", COLOR_BLUE, COLOR_RED);
-        //
-        return false;
     }
+
     //
     return true;
 }
@@ -118,24 +166,12 @@ bool DBUtil::isOpenConnPGree() {
         //
         m_msg->ShowMessage(erro_log, COLOR_BLUE, COLOR_RED);
         //
-        m_mlf->setFile_name("Xml");
-        //
         m_mlf->CreateLogFile("LOGPGSQL", erro_log);
         //
         return false;
     }
     //
     return true;
-}
-
-DBConn *DBUtil::dbc() const
-{
-    return m_dbc;
-}
-
-void DBUtil::setDbc(DBConn *newDbc)
-{
-    m_dbc = newDbc;
 }
 
 
