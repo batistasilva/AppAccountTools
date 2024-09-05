@@ -45,8 +45,7 @@ int main(int argc, char *argv[]) {
     mainWin.show();
     mainWin.setMinimumSize(1024, 700);
 
-    mainWin.setFixedSize(1024, 768);
-    mainWin.setFixedSize(1024, 768);
+   // mainWin.setFixedSize(1024, 768);
 
     // DBUtil * mdbc;
     // ShowMsg * m_msg = new ShowMsg();

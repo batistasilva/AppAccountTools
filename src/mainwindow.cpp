@@ -52,8 +52,10 @@ public:
     MdiArea(QWidget *parent = 0)
         :
             QMdiArea(parent),
-            m_pixmap("images/logo.png")
-    {}
+            m_pixmap(":images/logo.png")
+    {
+
+    }
 protected:
     void paintEvent(QPaintEvent *event)
     {
@@ -62,8 +64,12 @@ protected:
         QPainter painter(viewport());
 
         // Calculate the logo position - the bottom right corner of the mdi area.
-        int x = width() - m_pixmap.width();
-        int y = height() - m_pixmap.height();
+        //int x = m_pixmap.width();//width() - m_pixmap.width();
+        //int y = m_pixmap.height();//height() - m_pixmap.height();
+
+        int x = (geometry().width() - m_pixmap.width() ) /2;
+        int y = (geometry().height() - m_pixmap.height() ) /2;
+
         painter.drawPixmap(x, y, m_pixmap);
     }
 private:
@@ -71,23 +77,25 @@ private:
     QPixmap m_pixmap;
 };
 
-MainWindow::MainWindow() {
-    mdiArea = new MdiArea(this);
+MainWindow::MainWindow():
+    mdiArea(new MdiArea(this))
+{
+//    setStyleSheet("background-image:url(\":images/logo.png\"); background-position: center; width:1024; height:768; ");
+
+    //mdiArea = new MdiArea(this);
     mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    setCentralWidget(mdiArea);
 
     windowMapper = new QSignalMapper(this);
     connect(windowMapper, SIGNAL(mapped(QWidget*)), this, SLOT(setActiveSubWindow(QWidget*)));
-
     createActions();
     createMenus();
     createStatusBar();
     // readSettings();
-
+    setCentralWidget(mdiArea);
     setWindowTitle(tr("Menu"));
     setUnifiedTitleAndToolBarOnMac(true);
-       
+
 }
 
 void MainWindow::closeEvent(QCloseEvent *event) {
