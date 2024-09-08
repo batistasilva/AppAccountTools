@@ -52,7 +52,7 @@ public:
     MdiArea(QWidget *parent = 0)
         :
             QMdiArea(parent),
-            m_pixmap(":images/logo.png")
+            m_pixmap(":/images/logo.png")
     {
 
     }
@@ -93,6 +93,7 @@ MainWindow::MainWindow():
     createStatusBar();
     // readSettings();
     setCentralWidget(mdiArea);
+    setWindowIcon(QIcon(":/images/PNG/512x512/folder.png"));
     setWindowTitle(tr("Menu"));
     setUnifiedTitleAndToolBarOnMac(true);
 

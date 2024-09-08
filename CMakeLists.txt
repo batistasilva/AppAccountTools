@@ -59,6 +59,12 @@ set(SOURCES_SRC_UTIL_DIR
     "${SRC_UTIL_DIR}/ShowMsg.cpp"
 )
 
+# Get rcc command path and put it in RCC
+get_target_property(RCC
+    Qt6::rcc
+    IMPORTED_LOCATION
+)
+
 # qt_standard_project_setup()
 
 include_directories(${SRC_DIR})
