@@ -1,10 +1,3 @@
-/* 
- * File:   DBConn.h
- * Author: batista
- *
- * Created on 20 de Fevereiro de 2013, 12:08
- */
-
 #ifndef DBCONN_H
 #define	DBCONN_H
 

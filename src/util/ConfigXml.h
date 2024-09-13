@@ -1,10 +1,3 @@
-/*
- * File:   ConfigXml.h
- * Author: batista
- *
- * Created on 20 de Fevereiro de 2013, 08:52
- */
-
 #ifndef CONFIGXML_H
 #define	CONFIGXML_H
 #include <QtGui>

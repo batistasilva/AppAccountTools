@@ -18,20 +18,20 @@ file(MAKE_DIRECTORY ${TranslationDir})
 set(TS_FILES "${TranslationDir}/en_GB.ts")
 
 #=================== INCLUSION OF Project Files ====================#
-set(FORMS_DIR "${CMAKE_SOURCE_DIR}/Forms")
+set(FORMS_DIR "${CMAKE_SOURCE_DIR}/forms")
 
 set(SOURCES_FORMS_DIR
-    "${FORMS_DIR}/MngFormConfig.ui"
+    "${FORMS_DIR}/FormConfig.ui"
     "${FORMS_DIR}/mainwindow.ui"
     "${FORMS_DIR}/images.qrc"
 )
 
 #--From Root
-set(MNG_FORMS_DIR "${CMAKE_SOURCE_DIR}/MngForms")
+set(MNG_FORMS_DIR "${CMAKE_SOURCE_DIR}/ctrlforms")
 
 set(SOURCES_MNGFORMS_DIR
-    "${MNG_FORMS_DIR}/MngFormConfig.cpp"
-    "${MNG_FORMS_DIR}/MngFormConfig.h"
+    "${MNG_FORMS_DIR}/CtrlConfig.cpp"
+    "${MNG_FORMS_DIR}/CtrlConfig.h"
 )
 
 #--From Root
@@ -44,7 +44,7 @@ set(SOURCES_SRC_DIR
 )
 
 #-- From SRC/Util
-set(SRC_UTIL_DIR "${CMAKE_SOURCE_DIR}/src/Util")
+set(SRC_UTIL_DIR "${CMAKE_SOURCE_DIR}/src/util")
 
 set(SOURCES_SRC_UTIL_DIR
     "${SRC_UTIL_DIR}/ConfigXml.h"

@@ -1,9 +1,3 @@
-/*
- * File:   ConfigXml.cpp
- * Author: batista
- * 
- * Created on 20 de Fevereiro de 2013, 08:52
- */
 
 #include "ConfigXml.h"
 #include <QtSql/QSqlDatabase>
@@ -14,7 +8,7 @@ ConfigXml::ConfigXml():
     m_msg(new ShowMsg())
 {
     system_path = "/home/system/WorkSpace/QtProjects/AppAccountTools/";
-    folder_write = system_path + "Xml/";
+    folder_write = system_path + "settings/";
 
     qDebug() << "drivers: "<< QSqlDatabase::drivers();
 }

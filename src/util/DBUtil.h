@@ -1,10 +1,3 @@
-/* 
- * File:   DBUtil.h
- * Author: batista
- *
- * Created on 20 de Fevereiro de 2013, 08:38
- */
-
 #ifndef DBUTIL_H
 #define	DBUTIL_H
 

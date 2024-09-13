@@ -1,10 +1,3 @@
-/* 
- * File:   ShowMsg.h
- * Author: batista
- *
- * Created on 8 de Março de 2013, 20:45
- */
-
 #ifndef SHOWMSG_H
 #define	SHOWMSG_H
 

@@ -53,7 +53,7 @@
 // #include "mngforms/MngFormSales.h"
 // #include "mngforms/MngFormQuote.h"
 // #include "mngforms/MngFormReceiptCash.h"
-#include "MngFormConfig.h"
+#include "CtrlConfig.h"
 
 // class MngFormReceiptCash;
 // class MngFormQuote;
@@ -106,7 +106,7 @@ private slots:
     void about();
     //
     //
-    MngFormConfig *createMdiWinConfig();
+    CtrlConfig *createMdiWinConfig();
     // MngFormCustomer *createMdiCustomer();
     // MngFormEmployee *createMdiEmployee();
     // MngFormProduct *createMdiProduct();

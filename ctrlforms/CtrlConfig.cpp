@@ -5,9 +5,9 @@
  * Created on 21 de Fevereiro de 2013, 09:06
  */
 
-#include "MngFormConfig.h"
+#include "CtrlConfig.h"
 
-MngFormConfig::MngFormConfig(QWidget *parent): QDialog(parent),
+CtrlConfig::CtrlConfig(QWidget *parent): QDialog(parent),
     m_dao(new DBUtil()),
     m_cfx(new ConfigXml()),
     mfcg(new Ui_FormConfig)
@@ -22,7 +22,7 @@ MngFormConfig::MngFormConfig(QWidget *parent): QDialog(parent),
 
 }
 
-MngFormConfig::~MngFormConfig() {
+CtrlConfig::~CtrlConfig() {
   //  runClose();
 }
 
@@ -31,7 +31,7 @@ MngFormConfig::~MngFormConfig() {
  * preenchimento do formulário.
  * @return 
  */
-bool MngFormConfig::VlFillForm() {
+bool CtrlConfig::VlFillForm() {
     if (mfcg->ConfigLEDbName->text().isEmpty()) {
         QMessageBox::warning(this, tr("Message!"), tr("Enter the database name!"));
         return false;
@@ -64,7 +64,7 @@ bool MngFormConfig::VlFillForm() {
  * Metodo responsavel por chamar metodo
  * de gravação dos dados do formulário.
  */
-void MngFormConfig::runSaveConf() {  
+void CtrlConfig::runSaveConf() {
 
     if (VlFillForm() == true) {
         /**
@@ -93,7 +93,7 @@ void MngFormConfig::runSaveConf() {
  * de teste para os dados informados
  * no formulário.
  */
-void MngFormConfig::runTestConf() {
+void CtrlConfig::runTestConf() {
     //
     if (VlFillForm() == true) {
         m_dao->setDatabase(mfcg->ConfigLEDbName->text());
@@ -120,7 +120,7 @@ void MngFormConfig::runTestConf() {
  * Metodo responsavel por fechar janela
  * de formulário aberta
  */
-void MngFormConfig::runClose() {
+void CtrlConfig::runClose() {
        // qApp->quit();
 //   qobject_cast<QMdiSubWindow*>(parent())->close();
     //this->accept();

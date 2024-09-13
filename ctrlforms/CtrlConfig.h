@@ -5,8 +5,8 @@
  * Created on 21 de Fevereiro de 2013, 09:06
  */
 
-#ifndef MNGFORMCONFIG_H
-#define	MNGFORMCONFIG_H
+#ifndef CTRLCONFIG_H
+#define	CTRLCONFIG_H
 #include <QDebug>
 #include <QKeyEvent>
 #include <QEvent>
@@ -20,11 +20,8 @@
 #include "ConfigXml.h"
 #include "DBUtil.h"
 #include "DBConn.h"
-#include "ui_MngFormConfig.h"
+#include "ui_FormConfig.h"
 
-
-using namespace std;
-using std::string;
 
 // namespace Ui
 // {
@@ -32,13 +29,13 @@ using std::string;
 // }
 
 class QWidget;
-class QTimer;
-class MngFormConfig : public QDialog {
+
+class CtrlConfig : public QDialog {
     Q_OBJECT
-    Q_DISABLE_COPY(MngFormConfig)
+    Q_DISABLE_COPY(CtrlConfig)
 public:
-    explicit MngFormConfig(QWidget *parent = 0);
-    virtual ~MngFormConfig();
+    explicit CtrlConfig(QWidget *parent = 0);
+    virtual ~CtrlConfig();
 
 protected:
     //void keyPressEvent(QKeyEvent * event);
@@ -60,5 +57,5 @@ private:
     bool VlFillForm();
 };
 
-#endif	/* MNGFORMCONFIG_H */
+#endif	/* CTRLCONFIG_H */
 

@@ -49,9 +49,7 @@
 class MdiArea : public QMdiArea
 {
 public:
-    MdiArea(QWidget *parent = 0)
-        :
-            QMdiArea(parent),
+    MdiArea(QWidget *parent = 0):QMdiArea(parent),
             m_pixmap(":/images/logo.png")
     {
 
@@ -112,7 +110,7 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 
 void MainWindow::newConfig() {
     //Estancia appcommandat
-    MngFormConfig *mngfconf = createMdiWinConfig();
+    CtrlConfig *mngfconf = createMdiWinConfig();
 
     //seta tamanho para janela a ser criada
     mngfconf->setFixedSize(1010, 700);
@@ -256,9 +254,9 @@ void MainWindow::newConfig() {
 //     //
 // }
 
-MngFormConfig *MainWindow::createMdiWinConfig() {
+CtrlConfig *MainWindow::createMdiWinConfig() {
     //Estancia AppConfigDb
-    MngFormConfig *mngfconf = new MngFormConfig();
+    CtrlConfig *mngfconf = new CtrlConfig();
 
     //Adiciona AppConfigDb para uma janela
     mdiArea->addSubWindow(mngfconf);
