@@ -23,13 +23,12 @@ CtrlConfig::CtrlConfig(QWidget *parent): QDialog(parent),
 }
 
 CtrlConfig::~CtrlConfig() {
-  //  runClose();
+   runClose();
 }
 
 /**
- * Metodo responsavel por validar 
- * preenchimento do formulário.
- * @return 
+ * Method to validate the form connection.
+ * @return
  */
 bool CtrlConfig::VlFillForm() {
     if (mfcg->ConfigLEDbName->text().isEmpty()) {
@@ -38,7 +37,7 @@ bool CtrlConfig::VlFillForm() {
     }
     //
     if (mfcg->ConfigLEDbHost->text().isEmpty()) {
-        QMessageBox::warning(this, tr("Message!"), QString::fromUtf8("Enter the database address!"));
+        QMessageBox::warning(this, tr("Message!"), tr("Enter the database address!"));
         return false;
     }
     //
@@ -48,7 +47,7 @@ bool CtrlConfig::VlFillForm() {
     }
     //
     if (mfcg->ConfigLEDbUser->text().isEmpty()) {
-        QMessageBox::warning(this, tr("Message!"), QString::fromUtf8("Enter the database user!"));
+        QMessageBox::warning(this, tr("Message!"), tr("Enter the database user!"));
         return false;
     }
     //
@@ -61,8 +60,7 @@ bool CtrlConfig::VlFillForm() {
 }
 
 /**
- * Metodo responsavel por chamar metodo
- * de gravação dos dados do formulário.
+ * Method to save database connection that works fine..
  */
 void CtrlConfig::runSaveConf() {
 
@@ -82,16 +80,14 @@ void CtrlConfig::runSaveConf() {
 
         if (st_db) {
             mfcg->ConfigLEDbTestResult->setStyleSheet(QString("QLineEdit { color: blue }"));
-            mfcg->ConfigLEDbTestResult->setText("File generated successfully!");
+            mfcg->ConfigLEDbTestResult->setText(tr("File generated successfully!"));
         }
     }
 
 }
 
 /**
- * Metodo responsavel por chamar metodo
- * de teste para os dados informados
- * no formulário.
+ * Method to test database connection.
  */
 void CtrlConfig::runTestConf() {
     //
@@ -105,11 +101,11 @@ void CtrlConfig::runTestConf() {
 
         if(m_dao->runTestConnection()){
            mfcg->ConfigLEDbTestResult->setStyleSheet(QString("QLineEdit { color: green }"));
-           mfcg->ConfigLEDbTestResult->setText(QString::fromUtf8("Connection made successfully!"));
+           mfcg->ConfigLEDbTestResult->setText(tr("Connection made successfully!"));
            mfcg->TButtonConfigDbSave->setEnabled(true);
         }else{
             mfcg->ConfigLEDbTestResult->setStyleSheet(QString("QLineEdit { color: red }"));
-            mfcg->ConfigLEDbTestResult->setText(QString::fromUtf8("Connection Error!"));
+            mfcg->ConfigLEDbTestResult->setText(tr("Connection Error!"));
             mfcg->TButtonConfigDbSave->setEnabled(false);
         }
     }
@@ -117,13 +113,19 @@ void CtrlConfig::runTestConf() {
 }
 
 /**
- * Metodo responsavel por fechar janela
- * de formulário aberta
+ * Method to close subwindow.
  */
 void CtrlConfig::runClose() {
-       // qApp->quit();
-//   qobject_cast<QMdiSubWindow*>(parent())->close();
-    //this->accept();
+   //Works for App, not for subwindow
+   //qApp->quit();
+
+   //Works for subwindow the right way
+   qobject_cast<QMdiSubWindow*>(parent())->close();
+
+   //Works for subwindow, but does not close the entire process
+   //this->accept();
+
+   //Works for subwindow, but does not close the entire process
    //this->close();
 }
 

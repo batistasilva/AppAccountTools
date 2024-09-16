@@ -9,12 +9,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>588</width>
-    <height>468</height>
+    <width>510</width>
+    <height>420</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Database Account Configuration Test</string>
   </property>
   <widget class="QToolButton" name="TButtonConfigDbSave">
    <property name="enabled">
@@ -22,8 +22,8 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>180</x>
-     <y>370</y>
+     <x>140</x>
+     <y>340</y>
      <width>100</width>
      <height>75</height>
     </rect>
@@ -46,6 +46,9 @@
      <pointsize>12</pointsize>
     </font>
    </property>
+   <property name="toolTip">
+    <string>Save a valid configuration.</string>
+   </property>
    <property name="text">
     <string>Salvar</string>
    </property>
@@ -66,10 +69,10 @@
   <widget class="QGroupBox" name="GBoxConfigDb">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>30</y>
-     <width>481</width>
-     <height>331</height>
+     <x>10</x>
+     <y>0</y>
+     <width>480</width>
+     <height>330</height>
     </rect>
    </property>
    <property name="font">
@@ -78,14 +81,17 @@
      <pointsize>12</pointsize>
     </font>
    </property>
+   <property name="autoFillBackground">
+    <bool>true</bool>
+   </property>
    <property name="title">
-    <string>Configuração de Acesso a Banco</string>
+    <string>Database Configuration Account.</string>
    </property>
    <widget class="QLabel" name="ConfigLBDbHost">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>80</y>
+      <y>70</y>
       <width>170</width>
       <height>30</height>
      </rect>
@@ -109,7 +115,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Endereço do Banco:</string>
+     <string>Database Address:</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
@@ -119,7 +125,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>120</y>
+      <y>100</y>
       <width>170</width>
       <height>30</height>
      </rect>
@@ -143,7 +149,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Porta:</string>
+     <string>Port:</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
@@ -153,7 +159,7 @@
     <property name="geometry">
      <rect>
       <x>190</x>
-      <y>120</y>
+      <y>100</y>
       <width>100</width>
       <height>30</height>
      </rect>
@@ -177,7 +183,7 @@
      </font>
     </property>
     <property name="toolTip">
-     <string>Informe a porta de conexão com o banco!</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter the connection port to the database!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -211,7 +217,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Nome do Banco:</string>
+     <string>Database Name:</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
@@ -245,7 +251,7 @@
      </font>
     </property>
     <property name="toolTip">
-     <string>Informe o nome do banco!</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter the database name!&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="inputMask">
      <string/>
@@ -258,7 +264,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>160</y>
+      <y>130</y>
       <width>170</width>
       <height>30</height>
      </rect>
@@ -282,7 +288,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Usuário:</string>
+     <string>Database User:</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
@@ -292,6 +298,68 @@
     <property name="geometry">
      <rect>
       <x>190</x>
+      <y>130</y>
+      <width>180</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>180</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>180</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter the database connection user!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="ConfigLBDbPass">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>160</y>
+      <width>170</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>170</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Password:</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="ConfigLEDbPass">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
       <y>160</y>
       <width>180</width>
       <height>30</height>
@@ -316,69 +384,7 @@
      </font>
     </property>
     <property name="toolTip">
-     <string>Informe o usuário de conexão com o banco!</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="ConfigLBDbPass">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>200</y>
-      <width>170</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>170</width>
-      <height>30</height>
-     </size>
-    </property>
-    <property name="font">
-     <font>
-      <family>Verdana</family>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Senha:</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="ConfigLEDbPass">
-    <property name="geometry">
-     <rect>
-      <x>190</x>
-      <y>200</y>
-      <width>180</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>180</width>
-      <height>30</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>180</width>
-      <height>30</height>
-     </size>
-    </property>
-    <property name="font">
-     <font>
-      <family>Verdana</family>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string>Informe a senha de conexão com banco!</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter the database connection password!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="echoMode">
      <enum>QLineEdit::EchoMode::PasswordEchoOnEdit</enum>
@@ -390,10 +396,10 @@
    <widget class="QToolButton" name="TButtonTestConn">
     <property name="geometry">
      <rect>
-      <x>390</x>
+      <x>190</x>
       <y>200</y>
-      <width>81</width>
-      <height>61</height>
+      <width>100</width>
+      <height>75</height>
      </rect>
     </property>
     <property name="font">
@@ -402,12 +408,21 @@
       <pointsize>12</pointsize>
      </font>
     </property>
+    <property name="toolTip">
+     <string>Test connection.</string>
+    </property>
     <property name="text">
-     <string>Testar</string>
+     <string>Test Conn...</string>
     </property>
     <property name="icon">
      <iconset resource="images.qrc">
-      <normaloff>:/images/PNG/24x24/reload-24x24.png</normaloff>:/images/PNG/24x24/reload-24x24.png</iconset>
+      <normaloff>:/images/PNG/120x120/120px-Gtk-refresh.png</normaloff>:/images/PNG/120x120/120px-Gtk-refresh.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>48</width>
+      <height>48</height>
+     </size>
     </property>
     <property name="toolButtonStyle">
      <enum>Qt::ToolButtonStyle::ToolButtonTextUnderIcon</enum>
@@ -417,7 +432,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>280</y>
+      <y>290</y>
       <width>100</width>
       <height>30</height>
      </rect>
@@ -441,7 +456,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Reultado:</string>
+     <string>Test Result:</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
@@ -450,9 +465,9 @@
    <widget class="QLineEdit" name="ConfigLEDbTestResult">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>280</y>
-      <width>370</width>
+      <x>110</x>
+      <y>290</y>
+      <width>331</width>
       <height>30</height>
      </rect>
     </property>
@@ -474,11 +489,8 @@
       <pointsize>12</pointsize>
      </font>
     </property>
-    <property name="focusPolicy">
-     <enum>Qt::FocusPolicy::NoFocus</enum>
-    </property>
     <property name="toolTip">
-     <string>Mostra mensagens de erro ou sucesso!</string>
+     <string>Shows error or success messages!</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -491,7 +503,7 @@
     <property name="geometry">
      <rect>
       <x>190</x>
-      <y>80</y>
+      <y>70</y>
       <width>180</width>
       <height>30</height>
      </rect>
@@ -515,7 +527,7 @@
      </font>
     </property>
     <property name="toolTip">
-     <string>Informe o endereço de conexão com o banco!</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter the database connection address!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -524,7 +536,6 @@
    <zorder>ConfigLEDbName</zorder>
    <zorder>ConfigLBDbHost</zorder>
    <zorder>ConfigLBDbPort</zorder>
-   <zorder>ConfigLEDbPort</zorder>
    <zorder>ConfigLBDbName</zorder>
    <zorder>ConfigLBDbUser</zorder>
    <zorder>ConfigLEDbUser</zorder>
@@ -534,12 +545,13 @@
    <zorder>ConfigLBDbTestResult</zorder>
    <zorder>ConfigLEDbTestResult</zorder>
    <zorder>ConfigLEDbHost</zorder>
+   <zorder>ConfigLEDbPort</zorder>
   </widget>
   <widget class="QToolButton" name="TButtonConfigDbExit">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>370</y>
+     <x>260</x>
+     <y>340</y>
      <width>100</width>
      <height>75</height>
     </rect>
@@ -561,6 +573,10 @@
      <family>Verdana</family>
      <pointsize>12</pointsize>
     </font>
+   </property>
+   <property name="toolTip">
+    <string>Close the window.
+</string>
    </property>
    <property name="text">
     <string>Sair</string>

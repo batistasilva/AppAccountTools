@@ -17,9 +17,11 @@
 #include <QItemSelectionModel>
 #include <QStandardItemModel>
 #include <QSortFilterProxyModel>
+#include <QMdiSubWindow>
 #include "ConfigXml.h"
 #include "DBUtil.h"
 #include "DBConn.h"
+
 #include "ui_FormConfig.h"
 
 
@@ -29,6 +31,7 @@
 // }
 
 class QWidget;
+
 
 class CtrlConfig : public QDialog {
     Q_OBJECT
