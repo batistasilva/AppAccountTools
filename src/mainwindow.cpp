@@ -4,7 +4,6 @@
 #include <QtWidgets>
 
 #include "mainwindow.h"
-#include "mdichild.h"
 
 class MdiArea : public QMdiArea
 {
